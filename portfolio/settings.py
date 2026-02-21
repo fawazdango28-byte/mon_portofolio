@@ -28,9 +28,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET8KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['FawazDev.pythonanywhere.com']
+
+CSRF_TRUSTED_ORIGINS = ['https://FawazDev.pythonanywhere.com']
 
 
 # Application definition
