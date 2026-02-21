@@ -1,0 +1,376 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Compétences - DANGO NADEY Abdoul Fawaz{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center" data-aos="fade-up">
+                <h1 class="display-5 fw-bold mb-4">Mes Compétences</h1>
+                <p class="lead mb-0">
+                    Découvrez les technologies et outils que je maîtrise pour créer des solutions 
+                    numériques innovantes et performantes.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Langages de Programmation -->
+{% if programming_languages %}
+<section class="py-5">
+    <div class="container">
+        <div class="skills-category">
+            <div class="row">
+                <div class="col-12 text-center mb-5" data-aos="fade-up">
+                    <h2 class="section-title">Langages de Programmation</h2>
+                    <p class="section-subtitle">Les langages que je maîtrise</p>
+                </div>
+            </div>
+            <div class="row">
+                {% for skill in programming_languages %}
+                <div class="col-lg-6 mb-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter|add:50 }}">
+                    <div class="skill-item">
+                        <div class="d-flex align-items-center mb-3">
+                            {% if skill.icon %}
+                            <i class="{{ skill.icon }} fa-2x text-primary me-3"></i>
+                            {% else %}
+                            <i class="fas fa-code fa-2x text-primary me-3"></i>
+                            {% endif %}
+                            <div class="flex-grow-1">
+                                <h5 class="skill-name mb-0">{{ skill.name }}</h5>
+                                <p class="skill-level mb-0">Niveau: {{ skill.proficiency }}%</p>
+                            </div>
+                        </div>
+                        <div class="skill-progress">
+                            <div class="skill-progress-bar" 
+                                 data-percentage="{{ skill.proficiency }}" 
+                                 style="width: 0%;"></div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Frameworks -->
+{% if frameworks %}
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="skills-category">
+            <div class="row">
+                <div class="col-12 text-center mb-5" data-aos="fade-up">
+                    <h2 class="section-title">Frameworks & Bibliothèques</h2>
+                    <p class="section-subtitle">Les frameworks qui accélèrent mon développement</p>
+                </div>
+            </div>
+            <div class="row">
+                {% for skill in frameworks %}
+                <div class="col-lg-6 mb-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter|add:50 }}">
+                    <div class="skill-item">
+                        <div class="d-flex align-items-center mb-3">
+                            {% if skill.icon %}
+                            <i class="{{ skill.icon }} fa-2x text-success me-3"></i>
+                            {% else %}
+                            <i class="fas fa-layer-group fa-2x text-success me-3"></i>
+                            {% endif %}
+                            <div class="flex-grow-1">
+                                <h5 class="skill-name mb-0">{{ skill.name }}</h5>
+                                <p class="skill-level mb-0">Niveau: {{ skill.proficiency }}%</p>
+                            </div>
+                        </div>
+                        <div class="skill-progress">
+                            <div class="skill-progress-bar" 
+                                 data-percentage="{{ skill.proficiency }}" 
+                                 style="width: 0%;"></div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Bases de données -->
+{% if databases %}
+<section class="py-5">
+    <div class="container">
+        <div class="skills-category">
+            <div class="row">
+                <div class="col-12 text-center mb-5" data-aos="fade-up">
+                    <h2 class="section-title">Bases de Données</h2>
+                    <p class="section-subtitle">Gestion et manipulation de données</p>
+                </div>
+            </div>
+            <div class="row">
+                {% for skill in databases %}
+                <div class="col-lg-6 mb-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter|add:50 }}">
+                    <div class="skill-item">
+                        <div class="d-flex align-items-center mb-3">
+                            {% if skill.icon %}
+                            <i class="{{ skill.icon }} fa-2x text-info me-3"></i>
+                            {% else %}
+                            <i class="fas fa-database fa-2x text-info me-3"></i>
+                            {% endif %}
+                            <div class="flex-grow-1">
+                                <h5 class="skill-name mb-0">{{ skill.name }}</h5>
+                                <p class="skill-level mb-0">Niveau: {{ skill.proficiency }}%</p>
+                            </div>
+                        </div>
+                        <div class="skill-progress">
+                            <div class="skill-progress-bar" 
+                                 data-percentage="{{ skill.proficiency }}" 
+                                 style="width: 0%;"></div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Outils -->
+{% if tools %}
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="skills-category">
+            <div class="row">
+                <div class="col-12 text-center mb-5" data-aos="fade-up">
+                    <h2 class="section-title">Outils & Environnements</h2>
+                    <p class="section-subtitle">Les outils qui optimisent mon workflow</p>
+                </div>
+            </div>
+            <div class="row">
+                {% for skill in tools %}
+                <div class="col-lg-6 mb-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter|add:50 }}">
+                    <div class="skill-item">
+                        <div class="d-flex align-items-center mb-3">
+                            {% if skill.icon %}
+                            <i class="{{ skill.icon }} fa-2x text-warning me-3"></i>
+                            {% else %}
+                            <i class="fas fa-tools fa-2x text-warning me-3"></i>
+                            {% endif %}
+                            <div class="flex-grow-1">
+                                <h5 class="skill-name mb-0">{{ skill.name }}</h5>
+                                <p class="skill-level mb-0">Niveau: {{ skill.proficiency }}%</p>
+                            </div>
+                        </div>
+                        <div class="skill-progress">
+                            <div class="skill-progress-bar" 
+                                 data-percentage="{{ skill.proficiency }}" 
+                                 style="width: 0%;"></div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Autres compétences -->
+{% if others %}
+<section class="py-5">
+    <div class="container">
+        <div class="skills-category">
+            <div class="row">
+                <div class="col-12 text-center mb-5" data-aos="fade-up">
+                    <h2 class="section-title">Autres Compétences</h2>
+                    <p class="section-subtitle">Compétences complémentaires</p>
+                </div>
+            </div>
+            <div class="row">
+                {% for skill in others %}
+                <div class="col-lg-6 mb-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter|add:50 }}">
+                    <div class="skill-item">
+                        <div class="d-flex align-items-center mb-3">
+                            {% if skill.icon %}
+                            <i class="{{ skill.icon }} fa-2x text-secondary me-3"></i>
+                            {% else %}
+                            <i class="fas fa-star fa-2x text-secondary me-3"></i>
+                            {% endif %}
+                            <div class="flex-grow-1">
+                                <h5 class="skill-name mb-0">{{ skill.name }}</h5>
+                                <p class="skill-level mb-0">Niveau: {{ skill.proficiency }}%</p>
+                            </div>
+                        </div>
+                        <div class="skill-progress">
+                            <div class="skill-progress-bar" 
+                                 data-percentage="{{ skill.proficiency }}" 
+                                 style="width: 0%;"></div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Section Stack Technologique -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center mb-5" data-aos="fade-up">
+                <h2 class="section-title">Ma Stack Technologique</h2>
+                <p class="section-subtitle">L'écosystème technologique que j'utilise</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3 col-md-6 mb-4" data-aos="zoom-in" data-aos-delay="100">
+                <div class="stack-card text-center p-4 bg-white shadow-sm rounded h-100">
+                    <i class="fab fa-python fa-4x text-primary mb-3"></i>
+                    <h5>Backend</h5>
+                    <ul class="list-unstyled">
+                        <li>Python</li>
+                        <li>Django</li>
+                        <li>Django REST Framework</li>
+                        <li>SQLite/MySQL</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4" data-aos="zoom-in" data-aos-delay="200">
+                <div class="stack-card text-center p-4 bg-white shadow-sm rounded h-100">
+                    <i class="fab fa-html5 fa-4x text-danger mb-3"></i>
+                    <h5>Frontend</h5>
+                    <ul class="list-unstyled">
+                        <li>HTML5</li>
+                        <li>CSS3</li>
+                        <li>JavaScript</li>
+                        <li>Bootstrap</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4" data-aos="zoom-in" data-aos-delay="300">
+                <div class="stack-card text-center p-4 bg-white shadow-sm rounded h-100">
+                    <i class="fas fa-mobile-alt fa-4x text-info mb-3"></i>
+                    <h5>Mobile</h5>
+                    <ul class="list-unstyled">
+                        <li>Flutter</li>
+                        <li>Dart</li>
+                        <li>Firebase</li>
+                        <li>Supabase</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4" data-aos="zoom-in" data-aos-delay="400">
+                <div class="stack-card text-center p-4 bg-white shadow-sm rounded h-100">
+                    <i class="fas fa-tools fa-4x text-warning mb-3"></i>
+                    <h5>Outils</h5>
+                    <ul class="list-unstyled">
+                        <li>VS Code</li>
+                        <li>Android Studio</li>
+                        <li>Git/GitHub</li>
+                        <li>StarUML</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Certifications et apprentissage -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center mb-5" data-aos="fade-up">
+                <h2 class="section-title">Apprentissage Continu</h2>
+                <p class="section-subtitle">Je me forme constamment aux nouvelles technologies</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="learning-card text-center p-4 bg-white shadow-sm rounded h-100">
+                    <i class="fas fa-book-open fa-3x text-primary mb-3"></i>
+                    <h5>Veille Technologique</h5>
+                    <p class="text-muted">
+                        Je suis constamment les dernières tendances et innovations 
+                        dans le développement web et mobile.
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="learning-card text-center p-4 bg-white shadow-sm rounded h-100">
+                    <i class="fas fa-code-branch fa-3x text-success mb-3"></i>
+                    <h5>Projets Open Source</h5>
+                    <p class="text-muted">
+                        Participation à des projets open source pour améliorer mes 
+                        compétences et contribuer à la communauté.
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="300">
+                <div class="learning-card text-center p-4 bg-white shadow-sm rounded h-100">
+                    <i class="fas fa-users fa-3x text-warning mb-3"></i>
+                    <h5>Communauté</h5>
+                    <p class="text-muted">
+                        Participation active dans les communautés de développeurs 
+                        et partage de connaissances.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to action -->
+<section class="py-5" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center text-white" data-aos="fade-up">
+                <h2 class="mb-4">Besoin de ces compétences ?</h2>
+                <p class="lead mb-4">
+                    Mes compétences techniques et ma passion pour l'innovation peuvent 
+                    donner vie à votre projet. Discutons de vos besoins !
+                </p>
+                <div class="d-flex flex-column flex-md-row justify-content-center gap-3">
+                    <a href="{% url 'contact' %}" class="btn btn-warning btn-lg">
+                        <i class="fas fa-envelope me-2"></i>Démarrer un projet
+                    </a>
+                    <a href="{% url 'projects' %}" class="btn btn-outline-light btn-lg">
+                        <i class="fas fa-eye me-2"></i>Voir mes réalisations
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Animation des barres de progression
+    const skillObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const progressBar = entry.target;
+                const percentage = progressBar.dataset.percentage;
+                setTimeout(() => {
+                    progressBar.style.width = percentage + '%';
+                }, 200);
+            }
+        });
+    }, {
+        threshold: 0.5,
+        rootMargin: '0px 0px -100px 0px'
+    });
+
+    document.querySelectorAll('.skill-progress-bar').forEach(bar => {
+        skillObserver.observe(bar);
+    });
+});
+</script>
+{% endblock %}

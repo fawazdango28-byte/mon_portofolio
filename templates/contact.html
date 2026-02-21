@@ -1,0 +1,493 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}Contact - DANGO NADEY Abdoul Fawaz{% endblock %}
+{% block description %}Contactez DANGO NADEY Abdoul Fawaz pour vos projets de développement web et mobile.{% endblock %}
+
+{% block content %}
+<!-- Hero Section Contact -->
+<section class="hero-section bg-primary text-white py-5">
+    <div class="container">
+        <div class="row align-items-center min-vh-50">
+            <div class="col-lg-12 text-center" data-aos="fade-up">
+                <h1 class="display-4 fw-bold mb-4">Contactez-moi</h1>
+                <p class="lead mb-4">
+                    Discutons de votre prochain projet ensemble. Je suis toujours ouvert aux nouvelles opportunités et collaborations.
+                </p>
+                <div class="scroll-indicator">
+                    <a href="#contact-form" class="scroll-down text-white">
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Section Contact Principal -->
+<section id="contact-form" class="py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <!-- Informations de contact -->
+            <div class="col-lg-4 mb-5" data-aos="fade-right">
+                <div class="contact-info">
+                    <h3 class="h4 fw-bold mb-4">Restons en contact</h3>
+                    <p class="text-muted mb-4">
+                        N'hésitez pas à me contacter pour discuter de vos projets, 
+                        poser des questions ou simplement échanger sur les technologies.
+                    </p>
+                    
+                    {% if profile %}
+                    <!-- Email -->
+                    {% if profile.email %}
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h6 class="mb-1 fw-bold">Email</h6>
+                            <a href="mailto:{{ profile.email }}" class="text-decoration-none">
+                                {{ profile.email }}
+                            </a>
+                        </div>
+                    </div>
+                    {% endif %}
+                    
+                    <!-- Téléphone -->
+                    {% if profile.phone %}
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h6 class="mb-1 fw-bold">Téléphone</h6>
+                            <a href="tel:{{ profile.phone }}" class="text-decoration-none">
+                                {{ profile.phone }}
+                            </a>
+                        </div>
+                    </div>
+                    {% endif %}
+                    
+                    <!-- Localisation -->
+                    {% if profile.location %}
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h6 class="mb-1 fw-bold">Localisation</h6>
+                            <span>{{ profile.location }}</span>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endif %}
+                    
+                    <!-- Réseaux sociaux -->
+                    <div class="contact-item">
+                        <i class="fas fa-share-alt"></i>
+                        <div>
+                            <h6 class="mb-2 fw-bold">Suivez-moi</h6>
+                            <div class="social-links">
+                                {% if profile.github_url %}
+                                <a href="{{ profile.github_url }}" target="_blank" 
+                                   class="btn btn-outline-primary btn-sm me-2 mb-2"
+                                   data-bs-toggle="tooltip" title="GitHub">
+                                    <i class="fab fa-github"></i> GitHub
+                                </a>
+                                {% endif %}
+                                
+                                {% if profile.linkedin_url %}
+                                <a href="{{ profile.linkedin_url }}" target="_blank" 
+                                   class="btn btn-outline-primary btn-sm me-2 mb-2"
+                                   data-bs-toggle="tooltip" title="LinkedIn">
+                                    <i class="fab fa-linkedin"></i> LinkedIn
+                                </a>
+                                {% endif %}
+                                
+                                {% if profile.twitter_url %}
+                                <a href="{{ profile.twitter_url }}" target="_blank" 
+                                   class="btn btn-outline-primary btn-sm me-2 mb-2"
+                                   data-bs-toggle="tooltip" title="Twitter">
+                                    <i class="fab fa-twitter"></i> Twitter
+                                </a>
+                                {% endif %}
+                                
+                                {% if profile.portfolio_url %}
+                                <a href="{{ profile.portfolio_url }}" target="_blank" 
+                                   class="btn btn-outline-primary btn-sm me-2 mb-2"
+                                   data-bs-toggle="tooltip" title="Portfolio">
+                                    <i class="fas fa-globe"></i> Portfolio
+                                </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Temps de réponse -->
+                    <div class="alert alert-info mt-4">
+                        <i class="fas fa-info-circle me-2"></i>
+                        <strong>Temps de réponse :</strong> Je réponds généralement sous 24h
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Formulaire de contact -->
+            <div class="col-lg-8" data-aos="fade-left">
+                <div class="bg-white p-4 p-md-5 rounded-3 shadow-sm">
+                    <div class="text-center mb-4">
+                        <h2 class="h3 fw-bold">Envoyez-moi un message</h2>
+                        <p class="text-muted">Remplissez le formulaire ci-dessous et je vous répondrai rapidement.</p>
+                    </div>
+                    
+                    <form method="post" novalidate>
+                        {% csrf_token %}
+                        
+                        <!-- Affichage des erreurs générales -->
+                        {% if form.non_field_errors %}
+                        <div class="alert alert-danger" role="alert">
+                            {% for error in form.non_field_errors %}
+                                <i class="fas fa-exclamation-triangle me-2"></i>{{ error }}
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                        
+                        <div class="row">
+                            <!-- Nom -->
+                            <div class="col-md-6 mb-3">
+                                <label for="{{ form.name.id_for_label }}" class="form-label fw-semibold">
+                                    <i class="fas fa-user me-2 text-primary"></i>{{ form.name.label }}
+                                    <span class="text-danger">*</span>
+                                </label>
+                                {{ form.name }}
+                                {% if form.name.errors %}
+                                <div class="text-danger small mt-1">
+                                    {% for error in form.name.errors %}
+                                        <i class="fas fa-exclamation-circle me-1"></i>{{ error }}
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
+                            </div>
+                            
+                            <!-- Email -->
+                            <div class="col-md-6 mb-3">
+                                <label for="{{ form.email.id_for_label }}" class="form-label fw-semibold">
+                                    <i class="fas fa-envelope me-2 text-primary"></i>{{ form.email.label }}
+                                    <span class="text-danger">*</span>
+                                </label>
+                                {{ form.email }}
+                                {% if form.email.errors %}
+                                <div class="text-danger small mt-1">
+                                    {% for error in form.email.errors %}
+                                        <i class="fas fa-exclamation-circle me-1"></i>{{ error }}
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <!-- Sujet -->
+                        <div class="mb-3">
+                            <label for="{{ form.subject.id_for_label }}" class="form-label fw-semibold">
+                                <i class="fas fa-tag me-2 text-primary"></i>{{ form.subject.label }}
+                                <span class="text-danger">*</span>
+                            </label>
+                            {{ form.subject }}
+                            {% if form.subject.errors %}
+                            <div class="text-danger small mt-1">
+                                {% for error in form.subject.errors %}
+                                    <i class="fas fa-exclamation-circle me-1"></i>{{ error }}
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+                        
+                        <!-- Message -->
+                        <div class="mb-4">
+                            <label for="{{ form.message.id_for_label }}" class="form-label fw-semibold">
+                                <i class="fas fa-comment me-2 text-primary"></i>{{ form.message.label }}
+                                <span class="text-danger">*</span>
+                            </label>
+                            {{ form.message }}
+                            <div class="form-text">
+                                <i class="fas fa-info-circle me-1"></i>
+                                Minimum 10 caractères requis
+                            </div>
+                            {% if form.message.errors %}
+                            <div class="text-danger small mt-1">
+                                {% for error in form.message.errors %}
+                                    <i class="fas fa-exclamation-circle me-1"></i>{{ error }}
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+                        
+                        <!-- Bouton d'envoi -->
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary btn-lg px-5 py-3">
+                                <i class="fas fa-paper-plane me-2"></i>
+                                Envoyer le message
+                            </button>
+                        </div>
+                        
+                        <div class="text-center mt-3">
+                            <small class="text-muted">
+                                <i class="fas fa-shield-alt me-1"></i>
+                                Vos informations sont sécurisées et ne seront pas partagées
+                            </small>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Section FAQ -->
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <h2 class="section-title">Questions Fréquentes</h2>
+            <p class="section-subtitle">
+                Voici quelques réponses aux questions les plus courantes
+            </p>
+        </div>
+        
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="accordion" id="faqAccordion" data-aos="fade-up">
+                    <!-- FAQ 1 -->
+                    <div class="accordion-item border-0 mb-3 shadow-sm">
+                        <h3 class="accordion-header" id="faq1">
+                            <button class="accordion-button rounded-3" type="button" 
+                                    data-bs-toggle="collapse" data-bs-target="#collapse1">
+                                <i class="fas fa-question-circle me-2 text-primary"></i>
+                                Quels types de projets acceptez-vous ?
+                            </button>
+                        </h3>
+                        <div id="collapse1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Je travaille principalement sur des projets de développement web (Django, React) 
+                                et mobile (Flutter). J'accepte aussi bien les projets de petite envergure que 
+                                les applications complexes d'entreprise.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ 2 -->
+                    <div class="accordion-item border-0 mb-3 shadow-sm">
+                        <h3 class="accordion-header" id="faq2">
+                            <button class="accordion-button collapsed rounded-3" type="button" 
+                                    data-bs-toggle="collapse" data-bs-target="#collapse2">
+                                <i class="fas fa-clock me-2 text-primary"></i>
+                                Quels sont vos délais de livraison ?
+                            </button>
+                        </h3>
+                        <div id="collapse2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Les délais varient selon la complexité du projet. Un site vitrine peut être 
+                                livré en 1-2 semaines, tandis qu'une application complète peut prendre 
+                                plusieurs mois. Je fournis toujours une estimation détaillée.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ 3 -->
+                    <div class="accordion-item border-0 mb-3 shadow-sm">
+                        <h3 class="accordion-header" id="faq3">
+                            <button class="accordion-button collapsed rounded-3" type="button" 
+                                    data-bs-toggle="collapse" data-bs-target="#collapse3">
+                                <i class="fas fa-euro-sign me-2 text-primary"></i>
+                                Comment établissez-vous vos tarifs ?
+                            </button>
+                        </h3>
+                        <div id="collapse3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Mes tarifs sont basés sur la complexité, la durée et les technologies requises. 
+                                Je propose des devis gratuits et détaillés après analyse de vos besoins. 
+                                Contactez-moi pour une estimation personnalisée.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ 4 -->
+                    <div class="accordion-item border-0 mb-3 shadow-sm">
+                        <h3 class="accordion-header" id="faq4">
+                            <button class="accordion-button collapsed rounded-3" type="button" 
+                                    data-bs-toggle="collapse" data-bs-target="#collapse4">
+                                <i class="fas fa-handshake me-2 text-primary"></i>
+                                Proposez-vous de la maintenance ?
+                            </button>
+                        </h3>
+                        <div id="collapse4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Oui, je propose des services de maintenance et de support continu pour tous 
+                                mes projets. Cela inclut les mises à jour, corrections de bugs, et 
+                                améliorations fonctionnelles.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Section Call to Action -->
+<section class="py-5 bg-primary text-white">
+    <div class="container text-center" data-aos="fade-up">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <h2 class="h3 fw-bold mb-3">Prêt à démarrer votre projet ?</h2>
+                <p class="lead mb-4">
+                    Transformons ensemble vos idées en solutions digitales innovantes
+                </p>
+                <div class="d-flex flex-wrap justify-content-center gap-3">
+                    {% if profile and profile.cv_file %}
+                    <a href="{% url 'download_cv' %}" class="btn btn-light btn-lg">
+                        <i class="fas fa-download me-2"></i>
+                        Télécharger mon CV
+                    </a>
+                    {% endif %}
+                    <a href="{% url 'projects' %}" class="btn btn-outline-light btn-lg">
+                        <i class="fas fa-eye me-2"></i>
+                        Voir mes projets
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Modal de confirmation (si envoi réussi) -->
+{% if messages %}
+<div class="modal fade" id="successModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow">
+            <div class="modal-header bg-success text-white border-0">
+                <h5 class="modal-title">
+                    <i class="fas fa-check-circle me-2"></i>Message envoyé !
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body text-center py-4">
+                <i class="fas fa-paper-plane fa-3x text-success mb-3"></i>
+                <h6 class="fw-bold mb-3">Merci pour votre message !</h6>
+                <p class="mb-0">Je vous répondrai dans les plus brefs délais.</p>
+            </div>
+            <div class="modal-footer border-0 justify-content-center">
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal">
+                    Parfait !
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Afficher le modal de succès si message envoyé
+    var successModalEl = document.getElementById('successModal');
+    if (successModalEl) {
+        var successModal = new bootstrap.Modal(successModalEl);
+        successModal.show();
+    }
+    
+    // Validation en temps réel du formulaire
+    const form = document.querySelector('form[method="post"]');
+    const inputs = form.querySelectorAll('input, textarea');
+    
+    inputs.forEach(input => {
+        input.addEventListener('blur', function() {
+            validateField(this);
+        });
+        
+        input.addEventListener('input', function() {
+            if (this.classList.contains('is-invalid')) {
+                validateField(this);
+            }
+        });
+    });
+    
+    function validateField(field) {
+        const value = field.value.trim();
+        let isValid = true;
+        let errorMessage = '';
+        
+        // Validation selon le type de champ
+        switch (field.name) {
+            case 'name':
+                if (!value) {
+                    isValid = false;
+                    errorMessage = 'Le nom est requis';
+                }
+                break;
+            case 'email':
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!value) {
+                    isValid = false;
+                    errorMessage = 'L\'email est requis';
+                } else if (!emailRegex.test(value)) {
+                    isValid = false;
+                    errorMessage = 'Format d\'email invalide';
+                }
+                break;
+            case 'subject':
+                if (!value) {
+                    isValid = false;
+                    errorMessage = 'Le sujet est requis';
+                }
+                break;
+            case 'message':
+                if (!value) {
+                    isValid = false;
+                    errorMessage = 'Le message est requis';
+                } else if (value.length < 10) {
+                    isValid = false;
+                    errorMessage = 'Le message doit contenir au moins 10 caractères';
+                }
+                break;
+        }
+        
+        // Mise à jour de l'interface
+        const existingError = field.parentNode.querySelector('.invalid-feedback');
+        if (existingError) {
+            existingError.remove();
+        }
+        
+        if (isValid) {
+            field.classList.remove('is-invalid');
+            field.classList.add('is-valid');
+        } else {
+            field.classList.remove('is-valid');
+            field.classList.add('is-invalid');
+            
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'invalid-feedback';
+            errorDiv.innerHTML = `<i class="fas fa-exclamation-circle me-1"></i>${errorMessage}`;
+            field.parentNode.appendChild(errorDiv);
+        }
+    }
+    
+    // Compteur de caractères pour le message
+    const messageField = document.querySelector('textarea[name="message"]');
+    if (messageField) {
+        const counterDiv = document.createElement('div');
+        counterDiv.className = 'form-text text-end';
+        messageField.parentNode.appendChild(counterDiv);
+        
+        const updateCounter = () => {
+            const length = messageField.value.length;
+            const maxLength = 1000; // Limite suggérée
+            counterDiv.textContent = `${length}/${maxLength} caractères`;
+            
+            if (length > maxLength * 0.9) {
+                counterDiv.classList.add('text-warning');
+            } else {
+                counterDiv.classList.remove('text-warning');
+            }
+        };
+        
+        messageField.addEventListener('input', updateCounter);
+        updateCounter();
+    }
+});
+</script>
+{% endblock %}

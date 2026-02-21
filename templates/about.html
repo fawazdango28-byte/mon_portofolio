@@ -1,0 +1,309 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}À propos - DANGO NADEY Abdoul Fawaz{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6" data-aos="fade-right">
+                <h1 class="display-5 fw-bold mb-4">À propos de moi</h1>
+                {% if profile.bio %}
+                    <div class="bio-content">{{ profile.bio|safe }}</div>
+                {% else %}
+                    <p class="lead mb-4">
+                        Je suis DANGO NADEY Abdoul Fawaz, un développeur full-stack passionné basé à Lomé, Togo. 
+                        Avec une expertise approfondie en Python, Django, Flutter et technologies web modernes, 
+                        je crée des solutions numériques innovantes et performantes.
+                    </p>
+                    <p class="mb-4">
+                        Mon approche combine créativité technique et rigueur professionnelle pour livrer des 
+                        projets qui dépassent les attentes. Je suis constamment à la recherche de nouvelles 
+                        technologies et méthodologies pour améliorer mes compétences et offrir les meilleures 
+                        solutions à mes clients.
+                    </p>
+                {% endif %}
+                
+                <div class="mb-4">
+                    <h5>Coordonnées</h5>
+                    {% if profile.email %}
+                    <p class="mb-2">
+                        <i class="fas fa-envelope text-primary me-2"></i>
+                        <a href="mailto:{{ profile.email }}">{{ profile.email }}</a>
+                    </p>
+                    {% endif %}
+                    {% if profile.phone %}
+                    <p class="mb-2">
+                        <i class="fas fa-phone text-primary me-2"></i>
+                        <a href="tel:{{ profile.phone }}">{{ profile.phone }}</a>
+                    </p>
+                    {% endif %}
+                    {% if profile.location %}
+                    <p class="mb-2">
+                        <i class="fas fa-map-marker-alt text-primary me-2"></i>
+                        {{ profile.location }}
+                    </p>
+                    {% endif %}
+                </div>
+
+                {% if profile.cv_file %}
+                <a href="{% url 'download_cv' %}" class="btn btn-primary btn-lg">
+                    <i class="fas fa-download me-2"></i>Télécharger mon CV
+                </a>
+                {% endif %}
+            </div>
+            <div class="col-lg-6" data-aos="fade-left">
+                {% if profile.profile_image %}
+                <img src="{{ profile.profile_image.url }}" 
+                     alt="{{ profile.name }}" 
+                     class="img-fluid about-img">
+                {% else %}
+                <div class="text-center">
+                    <i class="fas fa-user-circle fa-10x text-muted"></i>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Statistiques -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-6 mb-4" data-aos="zoom-in" data-aos-delay="100">
+                <div class="stats-item">
+                    <div class="stats-number" data-count="50">0</div>
+                    <div class="stats-label">Projets Complétés</div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4" data-aos="zoom-in" data-aos-delay="200">
+                <div class="stats-item">
+                    <div class="stats-number" data-count="3">0</div>
+                    <div class="stats-label">Années d'Expérience</div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4" data-aos="zoom-in" data-aos-delay="300">
+                <div class="stats-item">
+                    <div class="stats-number" data-count="8">0</div>
+                    <div class="stats-label">Technologies Maîtrisées</div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4" data-aos="zoom-in" data-aos-delay="400">
+                <div class="stats-item">
+                    <div class="stats-number" data-count="100">0</div>
+                    <div class="stats-label">% Satisfaction Client</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Expérience Professionnelle -->
+{% if experiences %}
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center mb-5" data-aos="fade-up">
+                <h2 class="section-title">Expérience Professionnelle</h2>
+                <p class="section-subtitle">Mon parcours professionnel</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="timeline">
+                    {% for experience in experiences %}
+                    <div class="timeline-item" data-aos="fade-up" data-aos-delay="{{ forloop.counter|add:100 }}">
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <div>
+                                <h5 class="mb-1">{{ experience.position }}</h5>
+                                <h6 class="text-primary mb-2">{{ experience.company }}</h6>
+                                <p class="text-muted mb-0">
+                                    <i class="fas fa-map-marker-alt me-1"></i>{{ experience.location }}
+                                </p>
+                            </div>
+                            <div class="text-end">
+                                <span class="badge bg-secondary">
+                                    {{ education.start_date|date:"Y" }} - 
+                                    {% if education.end_date %}
+                                        {{ education.end_date|date:"Y" }}
+                                    {% else %}
+                                        En cours
+                                    {% endif %}
+                                </span>
+                                {% if education.grade %}
+                                <div class="mt-1">
+                                    <span class="badge bg-warning text-dark">{{ education.grade }}</span>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% if education.description %}
+                        <div class="education-description">
+                            {{ education.description|safe }}
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Compétences techniques rapides -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center mb-5" data-aos="fade-up">
+                <h2 class="section-title">Domaines d'expertise</h2>
+                <p class="section-subtitle">Technologies que je maîtrise</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="text-center">
+                    <div class="expertise-icon mb-3">
+                        <i class="fas fa-code fa-3x text-primary"></i>
+                    </div>
+                    <h5>Développement Web</h5>
+                    <p class="text-muted">HTML, CSS, JavaScript, Django, Bootstrap</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="text-center">
+                    <div class="expertise-icon mb-3">
+                        <i class="fas fa-mobile-alt fa-3x text-info"></i>
+                    </div>
+                    <h5>Développement Mobile</h5>
+                    <p class="text-muted">Flutter, Dart, Applications cross-platform</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="300">
+                <div class="text-center">
+                    <div class="expertise-icon mb-3">
+                        <i class="fas fa-server fa-3x text-success"></i>
+                    </div>
+                    <h5>Backend & API</h5>
+                    <p class="text-muted">Python, Django REST Framework, Bases de données</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="400">
+                <div class="text-center">
+                    <div class="expertise-icon mb-3">
+                        <i class="fas fa-tools fa-3x text-warning"></i>
+                    </div>
+                    <h5>Outils & DevOps</h5>
+                    <p class="text-muted">Git, VS Code, Android Studio, StarUML</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Valeurs et philosophie -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center mb-5" data-aos="fade-up">
+                <h2 class="section-title">Ma philosophie</h2>
+                <p class="section-subtitle">Les valeurs qui guident mon travail</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="value-card text-center p-4 bg-white shadow-sm rounded h-100">
+                    <i class="fas fa-lightbulb fa-3x text-warning mb-3"></i>
+                    <h5>Innovation</h5>
+                    <p class="text-muted">
+                        Je recherche constamment des solutions créatives et modernes pour 
+                        résoudre les défis techniques complexes.
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="value-card text-center p-4 bg-white shadow-sm rounded h-100">
+                    <i class="fas fa-users fa-3x text-primary mb-3"></i>
+                    <h5>Collaboration</h5>
+                    <p class="text-muted">
+                        Le travail d'équipe et la communication transparente sont essentiels 
+                        pour le succès de tout projet.
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="300">
+                <div class="value-card text-center p-4 bg-white shadow-sm rounded h-100">
+                    <i class="fas fa-rocket fa-3x text-success mb-3"></i>
+                    <h5>Performance</h5>
+                    <p class="text-muted">
+                        Chaque ligne de code que j'écris vise l'optimisation et la 
+                        performance pour une expérience utilisateur exceptionnelle.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to action -->
+<section class="py-5" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center text-white" data-aos="fade-up">
+                <h2 class="mb-4">Travaillons ensemble</h2>
+                <p class="lead mb-4">
+                    Vous avez un projet en tête ? Je serais ravi de discuter avec vous 
+                    de la façon dont nous pourrions collaborer pour le concrétiser.
+                </p>
+                <div class="d-flex flex-column flex-md-row justify-content-center gap-3">
+                    <a href="{% url 'contact' %}" class="btn btn-warning btn-lg">
+                        <i class="fas fa-envelope me-2"></i>Me contacter
+                    </a>
+                    <a href="{% url 'projects' %}" class="btn btn-outline-light btn-lg">
+                        <i class="fas fa-briefcase me-2"></i>Voir mes projets
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Animation spéciale pour les statistiques
+    const statsObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const counter = entry.target;
+                const target = parseInt(counter.dataset.count);
+                const duration = 2000; // 2 secondes
+                const step = target / (duration / 16); // 60fps
+                let current = 0;
+                
+                const updateCounter = () => {
+                    if (current < target) {
+                        current += step;
+                        counter.textContent = Math.floor(current);
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        counter.textContent = target;
+                    }
+                };
+                
+                updateCounter();
+                statsObserver.unobserve(counter);
+            }
+        });
+    }, { threshold: 0.5 });
+    
+    document.querySelectorAll('.stats-number').forEach(counter => {
+        statsObserver.observe(counter);
+    });
+});
+</script>
+{% endblock %}d">

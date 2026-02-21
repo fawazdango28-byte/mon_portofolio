@@ -1,0 +1,227 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Accueil - DANGO NADEY Abdoul Fawaz{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section d-flex align-items-center min-vh-100" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6" data-aos="fade-right">
+                <div class="hero-content text-white">
+                    <h1 class="display-4 fw-bold mb-3">
+                        Salut, je suis<br>
+                        <span class="text-warning">{{ profile.name|default:"DANGO NADEY Abdoul Fawaz" }}</span>
+                    </h1>
+                    <h2 class="h3 mb-4 text-light">{{ profile.title|default:"Développeur Full-Stack" }}</h2>
+                    <p class="lead mb-4">
+                        Passionné par le développement d'applications web et mobile modernes, 
+                        je transforme vos idées en solutions numériques innovantes.
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="{% url 'projects' %}" class="btn btn-warning btn-lg me-3">
+                            <i class="fas fa-briefcase me-2"></i>Voir mes projets
+                        </a>
+                        <a href="{% url 'contact' %}" class="btn btn-outline-light btn-lg">
+                            <i class="fas fa-envelope me-2"></i>Me contacter
+                        </a>
+                    </div>
+                    {% if profile.cv_file %}
+                    <div class="mt-4">
+                        <a href="{% url 'download_cv' %}" class="btn btn-success">
+                            <i class="fas fa-download me-2"></i>Télécharger mon CV
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-lg-6" data-aos="fade-left">
+                <div class="hero-image text-center">
+                    {% if profile.profile_image %}
+                        <img src="{{ profile.profile_image.url }}" 
+                             alt="{{ profile.name }}" 
+                             class="img-fluid rounded-circle profile-img">
+                    {% else %}
+                        <div class="profile-placeholder">
+                            <i class="fas fa-user-circle fa-10x text-white"></i>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Animation de défilement -->
+    <div class="scroll-indicator">
+        <a href="#about-preview" class="scroll-down">
+            <i class="fas fa-chevron-down"></i>
+        </a>
+    </div>
+</section>
+
+<!-- Section À propos (Aperçu) -->
+<section id="about-preview" class="py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center" data-aos="fade-up">
+                <h2 class="section-title mb-4">À propos de moi</h2>
+                {% if profile.bio %}
+                    <div class="bio-preview">{{ profile.bio|safe|truncatewords:50 }}</div>
+                {% else %}
+                    <p class="lead">
+                        Développeur full-stack avec une expertise en Python, Django, Flutter et technologies web modernes. 
+                        Passionné par la création d'applications performantes et l'expérience utilisateur.
+                    </p>
+                {% endif %}
+                <a href="{% url 'about' %}" class="btn btn-primary mt-3">
+                    <i class="fas fa-user me-2"></i>En savoir plus
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Section Compétences rapides -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center mb-5" data-aos="fade-up">
+                <h2 class="section-title">Mes compétences</h2>
+                <p class="section-subtitle">Technologies que je maîtrise</p>
+            </div>
+        </div>
+        <div class="row">
+            <!-- Langages de programmation -->
+            <div class="col-lg-3 col-md-6 mb-4" data-aos="zoom-in" data-aos-delay="100">
+                <div class="skill-card text-center p-4 bg-white shadow-sm rounded">
+                    <i class="fab fa-python fa-3x text-primary mb-3"></i>
+                    <h5>Python</h5>
+                    <p class="text-muted">Développement backend et scripts</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4" data-aos="zoom-in" data-aos-delay="200">
+                <div class="skill-card text-center p-4 bg-white shadow-sm rounded">
+                    <i class="fas fa-mobile-alt fa-3x text-info mb-3"></i>
+                    <h5>Dart/Flutter</h5>
+                    <p class="text-muted">Applications mobiles cross-platform</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4" data-aos="zoom-in" data-aos-delay="300">
+                <div class="skill-card text-center p-4 bg-white shadow-sm rounded">
+                    <i class="fab fa-js-square fa-3x text-warning mb-3"></i>
+                    <h5>JavaScript</h5>
+                    <p class="text-muted">Développement frontend interactif</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4" data-aos="zoom-in" data-aos-delay="400">
+                <div class="skill-card text-center p-4 bg-white shadow-sm rounded">
+                    <i class="fas fa-database fa-3x text-success mb-3"></i>
+                    <h5>Bases de données</h5>
+                    <p class="text-muted">MySQL, SQLite, Firebase</p>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-4" data-aos="fade-up">
+            <a href="{% url 'skills' %}" class="btn btn-primary">
+                <i class="fas fa-cogs me-2"></i>Voir toutes mes compétences
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Section Projets en vedette -->
+{% if featured_projects %}
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center mb-5" data-aos="fade-up">
+                <h2 class="section-title">Projets en vedette</h2>
+                <p class="section-subtitle">Découvrez mes réalisations les plus marquantes</p>
+            </div>
+        </div>
+        <div class="row">
+            {% for project in featured_projects %}
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter|add:100 }}">
+                <div class="project-card card h-100 shadow-sm">
+                    {% if project.image %}
+                    <img src="{{ project.image.url }}" 
+                         class="card-img-top project-img" 
+                         alt="{{ project.title }}">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ project.title }}</h5>
+                        <p class="card-text">{{ project.short_description }}</p>
+                        <div class="project-tech mb-3">
+                            {% for tech in project.technologies.all|slice:":3" %}
+                                <span class="badge bg-secondary me-1">{{ tech.name }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                        <div class="d-flex justify-content-between">
+                            {% if project.github_url %}
+                            <a href="{{ project.github_url }}" target="_blank" class="btn btn-outline-dark btn-sm">
+                                <i class="fab fa-github me-1"></i>Code
+                            </a>
+                            {% endif %}
+                            {% if project.live_url %}
+                            <a href="{{ project.live_url }}" target="_blank" class="btn btn-outline-primary btn-sm">
+                                <i class="fas fa-external-link-alt me-1"></i>Demo
+                            </a>
+                            {% endif %}
+                            <a href="{% url 'project_detail' project.pk %}" class="btn btn-primary btn-sm">
+                                <i class="fas fa-eye me-1"></i>Détails
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="text-center mt-4" data-aos="fade-up">
+            <a href="{% url 'projects' %}" class="btn btn-primary btn-lg">
+                <i class="fas fa-briefcase me-2"></i>Voir tous mes projets
+            </a>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Section Call-to-Action -->
+<section class="py-5" style="background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center text-white" data-aos="fade-up">
+                <h2 class="mb-4">Prêt à collaborer ?</h2>
+                <p class="lead mb-4">
+                    Je suis toujours ouvert aux nouvelles opportunités et collaborations passionnantes.
+                    N'hésitez pas à me contacter pour discuter de votre prochain projet.
+                </p>
+                <a href="{% url 'contact' %}" class="btn btn-warning btn-lg">
+                    <i class="fas fa-paper-plane me-2"></i>Démarrer un projet
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Animation smooth scroll pour le lien de défilement
+    document.querySelector('.scroll-down').addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelector('#about-preview').scrollIntoView({
+            behavior: 'smooth'
+        });
+    });
+    
+    // Initialiser AOS
+    AOS.init({
+        duration: 1000,
+        once: true
+    });
+});
+</script>
+{% endblock %}
