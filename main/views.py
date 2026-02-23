@@ -42,7 +42,7 @@ def about(request):
     return render(request, 'about.html', context)
 
 def skills(request):
-    """Vue pour la page des compétences"""
+    profile = Profile.objects.first()
     programming_languages = Skill.objects.filter(skill_type='language')
     frameworks = Skill.objects.filter(skill_type='framework')
     databases = Skill.objects.filter(skill_type='database')
@@ -50,6 +50,7 @@ def skills(request):
     others = Skill.objects.filter(skill_type='other')
     
     context = {
+        'profile': profile,
         'programming_languages': programming_languages,
         'frameworks': frameworks,
         'databases': databases,
@@ -59,16 +60,15 @@ def skills(request):
     return render(request, 'skills.html', context)
 
 def projects(request):
-    """Vue pour la page des projets"""
+    profile = Profile.objects.first()
     all_projects = Project.objects.all()
     featured_projects = Project.objects.filter(featured=True)
-    
-    # Filtrage par statut si spécifié
     status = request.GET.get('status')
     if status:
         all_projects = all_projects.filter(status=status)
     
     context = {
+        'profile': profile,
         'projects': all_projects,
         'featured_projects': featured_projects,
         'current_status': status,
